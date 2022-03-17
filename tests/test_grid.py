@@ -3,7 +3,7 @@ import pytest
 from src.grid import *
 
 
-@pytest.fixture
+@pytest.fixture(autouse=True)
 def grid():
     return create_matrix()
 
@@ -48,43 +48,53 @@ def test_when_we_empty_the_grid_should_return_an_empty_grid(grid):
     assert (np.full((6, 7), ".") == empty_grid()).all()
 
 
-def test_when_we_print_an_empty_grid_should_return_correct_format(grid, capsys):
-    display_grid(grid)
-    captured = capsys.readouterr()
-    assert captured.out == ('.  .  .  .  .  .  .\n'
-                            '.  .  .  .  .  .  .\n'
-                            '.  .  .  .  .  .  .\n'
-                            '.  .  .  .  .  .  .\n'
-                            '.  .  .  .  .  .  .\n'
-                            '.  .  .  .  .  .  .\n')
+def test_when_we_print_an_empty_grid_should_return_correct_format(grid):
+    assert display_grid(grid) == ('.  .  .  .  .  .  .\n'
+                                  '.  .  .  .  .  .  .\n'
+                                  '.  .  .  .  .  .  .\n'
+                                  '.  .  .  .  .  .  .\n'
+                                  '.  .  .  .  .  .  .\n'
+                                  '.  .  .  .  .  .  .')
 
 
-def test_when_we_print_a_grid_should_return_correct_format(grid, capsys):
+def test_when_we_print_a_grid_should_return_correct_format(grid):
     for i in range(2):
         add_token(grid, 0, "X")
         add_token(grid, 0, "O")
     for i in range(2):
         add_token(grid, 1, "O")
         add_token(grid, 1, "X")
-    display_grid(grid)
-    captured = capsys.readouterr()
-    assert captured.out == ('.  .  .  .  .  .  .\n'
-                            '.  .  .  .  .  .  .\n'
-                            'O  X  .  .  .  .  .\n'
-                            'X  O  .  .  .  .  .\n'
-                            'O  X  .  .  .  .  .\n'
-                            'X  O  .  .  .  .  .\n')
+    assert display_grid(grid) == ('.  .  .  .  .  .  .\n'
+                                  '.  .  .  .  .  .  .\n'
+                                  'O  X  .  .  .  .  .\n'
+                                  'X  O  .  .  .  .  .\n'
+                                  'O  X  .  .  .  .  .\n'
+                                  'X  O  .  .  .  .  .')
 
 
-def test_when_we_print_a_full_grid_should_return_correct_format(grid, capsys):
+def test_when_we_print_a_full_grid_should_return_correct_format(grid):
     for i in range(7):
         for _ in range(6):
             add_token(grid, i, "X")
-    display_grid(grid)
-    captured = capsys.readouterr()
-    assert captured.out == ('X  X  X  X  X  X  X\n'
-                            'X  X  X  X  X  X  X\n'
-                            'X  X  X  X  X  X  X\n'
-                            'X  X  X  X  X  X  X\n'
-                            'X  X  X  X  X  X  X\n'
-                            'X  X  X  X  X  X  X\n')
+
+    assert display_grid(grid) == ('X  X  X  X  X  X  X\n'
+                                  'X  X  X  X  X  X  X\n'
+                                  'X  X  X  X  X  X  X\n'
+                                  'X  X  X  X  X  X  X\n'
+                                  'X  X  X  X  X  X  X\n'
+                                  'X  X  X  X  X  X  X')
+
+
+# def test_diags(grid):
+#     assert get_diagonals(grid) == ['.  .  .  .',
+#                                    '.  .  .  .',
+#                                    '.  .  .  .  .',
+#                                    '.  .  .  .  .',
+#                                    '.  .  .  .  .  .',
+#                                    '.  .  .  .  .  .',
+#                                    '.  .  .  .  .  .',
+#                                    '.  .  .  .  .  .',
+#                                    '.  .  .  .  .',
+#                                    '.  .  .  .  .',
+#                                    '.  .  .  .',
+#                                    '.  .  .  .']
