@@ -61,15 +61,18 @@ def get_diagonals(grid):
 #     return diagonals
 
 #
-# def get_list_of_columns(matrix: np.ndarray, index: int) -> list:
+# def get_list_of_columns(matrix: np.ndarray) -> list:
 #     columns = []
-#     for i in range(matrix.shape[0]):
-#         columns.append(list(matrix[:, index]))
+#     for i in range(len(matrix[0])):
+#         columns.append("  ".join(list(matrix[:, i])))
 #     return columns
 #
-#
-# def get_list_of_rows(matrix: np.ndarray, index: int) -> list:
-#     return list(matrix[index])
+# #
+# def get_list_of_rows(matrix: np.ndarray) -> list:
+#     rows = []
+#     for i in range(len(matrix)):
+#         rows.append("  ".join(list(matrix[i])))
+#     return rows
 #
 #
 # def get_main_diagonals(matrix: np.ndarray, index: int) -> list:
